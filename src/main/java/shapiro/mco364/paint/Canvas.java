@@ -1,6 +1,5 @@
 package shapiro.mco364.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,14 +9,14 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel {
-	
+
 	private BufferedImage buffer;
-	private Integer previousX;
-	private Integer previousY;
+	private Tool tool;
 
 	public Canvas() {
-		
+
 		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+		tool = new LineTool();
 
 		this.addMouseListener(new MouseListener() {
 
@@ -34,19 +33,16 @@ public class Canvas extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent event) {
-				
-				previousX = null;
-				previousY = null;
-				
-				Graphics g = buffer.getGraphics();
-				g.setColor(Color.MAGENTA);
-				g.drawLine(event.getX(), event.getY(), event.getX(), event.getY());
-				
+
+				tool.mousePressed(buffer.getGraphics(), event.getX(), event.getY());
 				repaint();
 
 			}
 
 			public void mouseReleased(MouseEvent event) {
+				tool.mouseReleased(buffer.getGraphics(), event.getX(), event.getY());
+				
+				repaint();
 
 			}
 
@@ -55,15 +51,7 @@ public class Canvas extends JPanel {
 		addMouseMotionListener(new MouseMotionListener() {
 
 			public void mouseDragged(MouseEvent event) {
-				Graphics g = buffer.getGraphics();
-				g.setColor(Color.MAGENTA);
-				g.drawLine(event.getX(), event.getY(), event.getX(), event.getY());
-				if (previousX != null && previousY != null) {
-					g.drawLine(previousX, previousY, event.getX(), event.getY());
-				}
-				
-				previousX = event.getX();
-				previousY = event.getY();
+				tool.mouseDragged(buffer.getGraphics(), event.getX(), event.getY());
 				
 				repaint();
 
@@ -82,6 +70,7 @@ public class Canvas extends JPanel {
 		super.paintComponent(g);
 
 		g.drawImage(buffer, 0, 0, null);
+		tool.drawPreview(g);
 	}
 
 }
