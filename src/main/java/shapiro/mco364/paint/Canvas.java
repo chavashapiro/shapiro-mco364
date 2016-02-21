@@ -16,7 +16,7 @@ public class Canvas extends JPanel {
 	public Canvas() {
 
 		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		tool = new LineTool();
+		tool = new PencilTool();
 
 		this.addMouseListener(new MouseListener() {
 
@@ -34,16 +34,16 @@ public class Canvas extends JPanel {
 
 			public void mousePressed(MouseEvent event) {
 
-				tool.mousePressed(buffer.getGraphics(), event.getX(), event.getY());
+				tool.mousePressed(buffer.getGraphics(), event.getX(),
+						event.getY());
 				repaint();
 
 			}
 
 			public void mouseReleased(MouseEvent event) {
-				tool.mouseReleased(buffer.getGraphics(), event.getX(), event.getY());
-				
+				tool.mouseReleased(buffer.getGraphics(), event.getX(),
+						event.getY());
 				repaint();
-
 			}
 
 		});
@@ -51,10 +51,9 @@ public class Canvas extends JPanel {
 		addMouseMotionListener(new MouseMotionListener() {
 
 			public void mouseDragged(MouseEvent event) {
-				tool.mouseDragged(buffer.getGraphics(), event.getX(), event.getY());
-				
+				tool.mouseDragged(buffer.getGraphics(), event.getX(),
+						event.getY());
 				repaint();
-
 			}
 
 			public void mouseMoved(MouseEvent event) {
@@ -71,6 +70,22 @@ public class Canvas extends JPanel {
 
 		g.drawImage(buffer, 0, 0, null);
 		tool.drawPreview(g);
+	}
+	
+	public void setPencilTool() {
+		this.tool = new PencilTool();
+	}
+	
+	public void setLineTool() {
+		this.tool = new LineTool();
+	}
+	
+	public void setBoxTool() {
+		this.tool = new BoxTool();
+	}
+	
+	public void setOvalTool() {
+		this.tool = new OvalTool();
 	}
 
 }
