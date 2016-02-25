@@ -71,23 +71,23 @@ public class Canvas extends JPanel {
 		g.drawImage(buffer, 0, 0, null);
 		tool.drawPreview(g);
 	}
-	
+
 	public void setPencilTool() {
 		this.tool = new PencilTool();
 	}
-	
+
 	public void setLineTool() {
 		this.tool = new LineTool();
 	}
-	
+
 	public void setBoxTool() {
 		this.tool = new BoxTool();
 	}
-	
+
 	public void setOvalTool() {
 		this.tool = new OvalTool();
 	}
-	
+
 	public void setBucketTool() {
 		this.tool = new BucketTool();
 	}
