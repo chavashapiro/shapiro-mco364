@@ -65,6 +65,16 @@ public class PaintFrame extends JFrame{
 		});
 		panel.add(ovalButton);
 		
+		JButton bucketButton = new JButton("Bucket");
+		bucketButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				canvas.setBucketTool();
+			}
+			
+		});
+		panel.add(bucketButton);
+		
 		container.add(panel, BorderLayout.NORTH);
 				
 		setVisible(true);

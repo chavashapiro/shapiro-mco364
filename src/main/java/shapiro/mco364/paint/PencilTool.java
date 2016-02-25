@@ -2,13 +2,14 @@ package shapiro.mco364.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class PencilTool implements Tool {
 
 	private Integer previousX;
 	private Integer previousY;
 
-	public void mousePressed(Graphics g, int x, int y) {
+	public void mousePressed(Graphics g, int x, int y, BufferedImage image) {
 		previousX = null;
 		previousY = null;
 

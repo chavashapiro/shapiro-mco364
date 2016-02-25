@@ -35,7 +35,7 @@ public class Canvas extends JPanel {
 			public void mousePressed(MouseEvent event) {
 
 				tool.mousePressed(buffer.getGraphics(), event.getX(),
-						event.getY());
+						event.getY(), buffer);
 				repaint();
 
 			}
@@ -86,6 +86,10 @@ public class Canvas extends JPanel {
 	
 	public void setOvalTool() {
 		this.tool = new OvalTool();
+	}
+	
+	public void setBucketTool() {
+		this.tool = new BucketTool();
 	}
 
 }
