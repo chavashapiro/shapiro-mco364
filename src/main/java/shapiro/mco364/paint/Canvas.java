@@ -5,16 +5,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel {
 
+	private Stack<BufferedImage> undo;
+	private Stack<BufferedImage> redo;
 	private BufferedImage buffer;
 	private Tool tool;
 
 	public Canvas() {
 
+		undo = new Stack<BufferedImage>();
+		redo = new Stack<BufferedImage>();
 		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		tool = new PencilTool();
 
@@ -89,7 +94,7 @@ public class Canvas extends JPanel {
 	}
 
 	public void setBucketTool() {
-		this.tool = new BucketTool();
+		this.tool = new BucketTool(buffer);
 	}
 
 }

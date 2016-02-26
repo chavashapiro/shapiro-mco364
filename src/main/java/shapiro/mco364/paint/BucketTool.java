@@ -6,11 +6,14 @@ import java.awt.image.BufferedImage;
 
 public class BucketTool implements Tool {
 
-	boolean[][] visited;
+	private BufferedImage image;
+	
+	public BucketTool(BufferedImage image) {
+		this.image = image;
+	}
 
 	public void mousePressed(Graphics g, int x, int y, BufferedImage image) {
 		if (image.getRGB(x, y) != Color.MAGENTA.getRGB()) {
-			visited = new boolean[image.getHeight()][image.getWidth()];
 			fill(image, x, y);
 		}
 	}
@@ -20,15 +23,10 @@ public class BucketTool implements Tool {
 			return;
 		}
 
-		if (visited[y][x]) {
-			return;
-		}
-
 		if (image.getRGB(x, y) != Color.MAGENTA.getRGB()) {
 			return;
 		}
 
-		visited[y][x] = true;
 		image.setRGB(x, y, Color.MAGENTA.getRGB());
 
 		fill(image, x - 1, y);
