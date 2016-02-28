@@ -1,5 +1,6 @@
 package shapiro.mco364.paint;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,6 +16,7 @@ public class Canvas extends JPanel {
 	private Stack<BufferedImage> redo;
 	private BufferedImage buffer;
 	private Tool tool;
+	private Color color;
 
 	public Canvas() {
 
@@ -22,6 +24,7 @@ public class Canvas extends JPanel {
 		redo = new Stack<BufferedImage>();
 		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		tool = new PencilTool();
+		color = Color.BLACK;
 
 		this.addMouseListener(new MouseListener() {
 
@@ -40,14 +43,14 @@ public class Canvas extends JPanel {
 			public void mousePressed(MouseEvent event) {
 
 				tool.mousePressed(buffer.getGraphics(), event.getX(),
-						event.getY(), buffer);
+						event.getY(), buffer, color);
 				repaint();
 
 			}
 
 			public void mouseReleased(MouseEvent event) {
 				tool.mouseReleased(buffer.getGraphics(), event.getX(),
-						event.getY());
+						event.getY(), color);
 				repaint();
 			}
 
@@ -57,7 +60,7 @@ public class Canvas extends JPanel {
 
 			public void mouseDragged(MouseEvent event) {
 				tool.mouseDragged(buffer.getGraphics(), event.getX(),
-						event.getY());
+						event.getY(), color);
 				repaint();
 			}
 
@@ -74,27 +77,15 @@ public class Canvas extends JPanel {
 		super.paintComponent(g);
 
 		g.drawImage(buffer, 0, 0, null);
-		tool.drawPreview(g);
+		tool.drawPreview(g, color);
 	}
 
-	public void setPencilTool() {
-		this.tool = new PencilTool();
+	public void setTool(Tool newTool) {
+		this.tool = newTool;
 	}
 
-	public void setLineTool() {
-		this.tool = new LineTool();
-	}
-
-	public void setBoxTool() {
-		this.tool = new BoxTool();
-	}
-
-	public void setOvalTool() {
-		this.tool = new OvalTool();
-	}
-
-	public void setBucketTool() {
-		this.tool = new BucketTool(buffer);
+	public void setColor(Color newColor) {
+		this.color = newColor;
 	}
 
 }

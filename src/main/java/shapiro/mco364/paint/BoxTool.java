@@ -13,15 +13,16 @@ public class BoxTool implements Tool {
 	private int cornerX;
 	private int cornerY;
 
-	public void mousePressed(Graphics g, int x, int y, BufferedImage image) {
+	public void mousePressed(Graphics g, int x, int y, BufferedImage image,
+			Color color) {
 		x1 = x;
 		y1 = y;
 		width = 0;
 		height = 0;
 	}
 
-	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(Color.MAGENTA);
+	public void mouseReleased(Graphics g, int x, int y, Color color) {
+		g.setColor(color);
 		width = Math.abs(x1 - x);
 		height = Math.abs(y1 - y);
 		if (x > x1 && y > y1) {
@@ -35,7 +36,7 @@ public class BoxTool implements Tool {
 		}
 	}
 
-	public void mouseDragged(Graphics g, int x, int y) {
+	public void mouseDragged(Graphics g, int x, int y, Color color) {
 		width = Math.abs(x1 - x);
 		height = Math.abs(y1 - y);
 		if (x > x1 && y > y1) {
@@ -53,8 +54,8 @@ public class BoxTool implements Tool {
 		}
 	}
 
-	public void drawPreview(Graphics g) {
-		g.setColor(Color.MAGENTA);
+	public void drawPreview(Graphics g, Color color) {
+		g.setColor(color);
 		g.drawRect(cornerX, cornerY, width, height);
 	}
 

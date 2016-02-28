@@ -1,13 +1,18 @@
 package shapiro.mco364.paint;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class PaintFrame extends JFrame {
 
@@ -29,7 +34,7 @@ public class PaintFrame extends JFrame {
 		pencilButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				canvas.setPencilTool();
+				canvas.setTool(new PencilTool());
 			}
 
 		});
@@ -39,7 +44,7 @@ public class PaintFrame extends JFrame {
 		lineButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				canvas.setLineTool();
+				canvas.setTool(new LineTool());
 			}
 
 		});
@@ -49,7 +54,7 @@ public class PaintFrame extends JFrame {
 		boxButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				canvas.setBoxTool();
+				canvas.setTool(new BoxTool());
 			}
 
 		});
@@ -59,7 +64,7 @@ public class PaintFrame extends JFrame {
 		ovalButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				canvas.setOvalTool();
+				canvas.setTool(new OvalTool());
 			}
 
 		});
@@ -69,11 +74,30 @@ public class PaintFrame extends JFrame {
 		bucketButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				canvas.setBucketTool();
+				canvas.setTool(new BucketTool());
 			}
 
 		});
 		panel.add(bucketButton);
+
+		final JColorChooser colorChooser = new JColorChooser(Color.BLACK);
+		colorChooser.setPreviewPanel(new JPanel());
+		AbstractColorChooserPanel[] panels = colorChooser.getChooserPanels();
+		for (AbstractColorChooserPanel colorPanel : panels) {
+			if (!colorPanel.getDisplayName().equals("RGB")) {
+				colorChooser.removeChooserPanel(colorPanel);
+			}
+		}
+		colorChooser.getSelectionModel().addChangeListener(
+				new ChangeListener() {
+
+					public void stateChanged(ChangeEvent arg0) {
+						Color newColor = colorChooser.getColor();
+						canvas.setColor(newColor);
+					}
+
+				});
+		panel.add(colorChooser);
 
 		container.add(panel, BorderLayout.NORTH);
 

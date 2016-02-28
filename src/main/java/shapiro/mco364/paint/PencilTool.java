@@ -9,22 +9,23 @@ public class PencilTool implements Tool {
 	private Integer previousX;
 	private Integer previousY;
 
-	public void mousePressed(Graphics g, int x, int y, BufferedImage image) {
+	public void mousePressed(Graphics g, int x, int y, BufferedImage image,
+			Color color) {
 		previousX = null;
 		previousY = null;
 
-		g.setColor(Color.MAGENTA);
+		g.setColor(color);
 		g.drawLine(x, y, x, y);
 
 	}
 
-	public void mouseReleased(Graphics g, int x, int y) {
+	public void mouseReleased(Graphics g, int x, int y, Color color) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void mouseDragged(Graphics g, int x, int y) {
-		g.setColor(Color.MAGENTA);
+	public void mouseDragged(Graphics g, int x, int y, Color color) {
+		g.setColor(color);
 		g.drawLine(x, y, x, y);
 		if (previousX != null && previousY != null) {
 			g.drawLine(previousX, previousY, x, y);
@@ -35,7 +36,7 @@ public class PencilTool implements Tool {
 
 	}
 
-	public void drawPreview(Graphics g) {
+	public void drawPreview(Graphics g, Color color) {
 		// TODO Auto-generated method stub
 
 	}
