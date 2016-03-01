@@ -88,4 +88,12 @@ public class Canvas extends JPanel {
 		this.color = newColor;
 	}
 
+	public void undo() {
+
+	}
+
+	public void redo() {
+
+	}
+
 }

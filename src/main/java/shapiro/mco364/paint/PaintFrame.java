@@ -80,11 +80,31 @@ public class PaintFrame extends JFrame {
 		});
 		panel.add(bucketButton);
 
+		JButton undoButton = new JButton("Undo");
+		undoButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				canvas.undo();
+			}
+
+		});
+		panel.add(undoButton);
+
+		JButton redoButton = new JButton("Redo");
+		undoButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				canvas.redo();
+			}
+
+		});
+		panel.add(redoButton);
+
 		final JColorChooser colorChooser = new JColorChooser(Color.BLACK);
 		colorChooser.setPreviewPanel(new JPanel());
 		AbstractColorChooserPanel[] panels = colorChooser.getChooserPanels();
 		for (AbstractColorChooserPanel colorPanel : panels) {
-			if (!colorPanel.getDisplayName().equals("RGB")) {
+			if (!colorPanel.getDisplayName().equals("Swatches")) {
 				colorChooser.removeChooserPanel(colorPanel);
 			}
 		}
