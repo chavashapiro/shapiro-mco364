@@ -2,6 +2,7 @@ package shapiro.mco364.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -41,16 +42,15 @@ public class Canvas extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent event) {
+				undo.push(copyImage(buffer));
 
-				tool.mousePressed(buffer.getGraphics(), event.getX(),
-						event.getY(), buffer, color);
+				tool.mousePressed(buffer.getGraphics(), event.getX(), event.getY(), buffer, color);
 				repaint();
 
 			}
 
 			public void mouseReleased(MouseEvent event) {
-				tool.mouseReleased(buffer.getGraphics(), event.getX(),
-						event.getY(), color);
+				tool.mouseReleased(buffer.getGraphics(), event.getX(), event.getY(), color);
 				repaint();
 			}
 
@@ -59,8 +59,7 @@ public class Canvas extends JPanel {
 		addMouseMotionListener(new MouseMotionListener() {
 
 			public void mouseDragged(MouseEvent event) {
-				tool.mouseDragged(buffer.getGraphics(), event.getX(),
-						event.getY(), color);
+				tool.mouseDragged(buffer.getGraphics(), event.getX(), event.getY(), color);
 				repaint();
 			}
 
@@ -89,11 +88,28 @@ public class Canvas extends JPanel {
 	}
 
 	public void undo() {
+		if (!undo.isEmpty()) {
+			redo.push(copyImage(buffer));
 
+			buffer = undo.pop();
+			repaint();
+		}
 	}
 
 	public void redo() {
+		if (!redo.isEmpty()) {
+			undo.push(copyImage(buffer));
 
+			buffer = redo.pop();
+			repaint();
+		}
 	}
 
+	private BufferedImage copyImage(BufferedImage image) {
+		BufferedImage newBuffer = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+		Graphics2D g2d = newBuffer.createGraphics();
+		g2d.drawImage(image, 0, 0, null);
+
+		return newBuffer;
+	}
 }

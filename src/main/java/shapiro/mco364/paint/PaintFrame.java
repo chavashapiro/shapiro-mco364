@@ -91,7 +91,7 @@ public class PaintFrame extends JFrame {
 		panel.add(undoButton);
 
 		JButton redoButton = new JButton("Redo");
-		undoButton.addActionListener(new ActionListener() {
+		redoButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				canvas.redo();
@@ -108,15 +108,14 @@ public class PaintFrame extends JFrame {
 				colorChooser.removeChooserPanel(colorPanel);
 			}
 		}
-		colorChooser.getSelectionModel().addChangeListener(
-				new ChangeListener() {
+		colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
 
-					public void stateChanged(ChangeEvent arg0) {
-						Color newColor = colorChooser.getColor();
-						canvas.setColor(newColor);
-					}
+			public void stateChanged(ChangeEvent arg0) {
+				Color newColor = colorChooser.getColor();
+				canvas.setColor(newColor);
+			}
 
-				});
+		});
 		panel.add(colorChooser);
 
 		container.add(panel, BorderLayout.NORTH);
