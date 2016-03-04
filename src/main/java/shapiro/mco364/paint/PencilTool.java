@@ -1,31 +1,33 @@
 package shapiro.mco364.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public class PencilTool implements Tool {
 
+	private PaintProperties properties;
 	private Integer previousX;
 	private Integer previousY;
 
-	public void mousePressed(Graphics g, int x, int y, BufferedImage image,
-			Color color) {
+	public PencilTool(PaintProperties properties) {
+		this.properties = properties;
+	}
+
+	public void mousePressed(Graphics g, int x, int y) {
 		previousX = null;
 		previousY = null;
 
-		g.setColor(color);
+		g.setColor(properties.getColor());
 		g.drawLine(x, y, x, y);
 
 	}
 
-	public void mouseReleased(Graphics g, int x, int y, Color color) {
+	public void mouseReleased(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void mouseDragged(Graphics g, int x, int y, Color color) {
-		g.setColor(color);
+	public void mouseDragged(Graphics g, int x, int y) {
+		g.setColor(properties.getColor());
 		g.drawLine(x, y, x, y);
 		if (previousX != null && previousY != null) {
 			g.drawLine(previousX, previousY, x, y);
@@ -36,7 +38,7 @@ public class PencilTool implements Tool {
 
 	}
 
-	public void drawPreview(Graphics g, Color color) {
+	public void drawPreview(Graphics g) {
 		// TODO Auto-generated method stub
 
 	}

@@ -1,11 +1,10 @@
 package shapiro.mco364.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public class BoxTool implements Tool {
 
+	private PaintProperties properties;
 	private int x1;
 	private int y1;
 	private int width;
@@ -13,16 +12,19 @@ public class BoxTool implements Tool {
 	private int cornerX;
 	private int cornerY;
 
-	public void mousePressed(Graphics g, int x, int y, BufferedImage image,
-			Color color) {
+	public BoxTool(PaintProperties properties) {
+		this.properties = properties;
+	}
+
+	public void mousePressed(Graphics g, int x, int y) {
 		x1 = x;
 		y1 = y;
 		width = 0;
 		height = 0;
 	}
 
-	public void mouseReleased(Graphics g, int x, int y, Color color) {
-		g.setColor(color);
+	public void mouseReleased(Graphics g, int x, int y) {
+		g.setColor(properties.getColor());
 		width = Math.abs(x1 - x);
 		height = Math.abs(y1 - y);
 		if (x > x1 && y > y1) {
@@ -36,7 +38,7 @@ public class BoxTool implements Tool {
 		}
 	}
 
-	public void mouseDragged(Graphics g, int x, int y, Color color) {
+	public void mouseDragged(Graphics g, int x, int y) {
 		width = Math.abs(x1 - x);
 		height = Math.abs(y1 - y);
 		if (x > x1 && y > y1) {
@@ -54,8 +56,8 @@ public class BoxTool implements Tool {
 		}
 	}
 
-	public void drawPreview(Graphics g, Color color) {
-		g.setColor(color);
+	public void drawPreview(Graphics g) {
+		g.setColor(properties.getColor());
 		g.drawRect(cornerX, cornerY, width, height);
 	}
 

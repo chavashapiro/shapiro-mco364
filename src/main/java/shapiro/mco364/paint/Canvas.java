@@ -15,17 +15,15 @@ public class Canvas extends JPanel {
 
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
-	private BufferedImage buffer;
 	private Tool tool;
-	private Color color;
+	private PaintProperties properties;
 
-	public Canvas() {
+	public Canvas(final PaintProperties properties) {
 
+		this.properties = properties;
 		undo = new Stack<BufferedImage>();
-		redo = new Stack<BufferedImage>();
-		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		tool = new PencilTool();
-		color = Color.BLACK;
+		redo = new Stack<BufferedImage>();		
+		tool = new PencilTool(properties);
 
 		this.addMouseListener(new MouseListener() {
 
@@ -42,15 +40,15 @@ public class Canvas extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent event) {
-				undo.push(copyImage(buffer));
+				undo.push(copyImage(properties.getImage()));
 
-				tool.mousePressed(buffer.getGraphics(), event.getX(), event.getY(), buffer, color);
+				tool.mousePressed(properties.getImage().getGraphics(), event.getX(), event.getY());
 				repaint();
 
 			}
 
 			public void mouseReleased(MouseEvent event) {
-				tool.mouseReleased(buffer.getGraphics(), event.getX(), event.getY(), color);
+				tool.mouseReleased(properties.getImage().getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
@@ -59,7 +57,7 @@ public class Canvas extends JPanel {
 		addMouseMotionListener(new MouseMotionListener() {
 
 			public void mouseDragged(MouseEvent event) {
-				tool.mouseDragged(buffer.getGraphics(), event.getX(), event.getY(), color);
+				tool.mouseDragged(properties.getImage().getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
@@ -75,8 +73,8 @@ public class Canvas extends JPanel {
 
 		super.paintComponent(g);
 
-		g.drawImage(buffer, 0, 0, null);
-		tool.drawPreview(g, color);
+		g.drawImage(properties.getImage(), 0, 0, null);
+		tool.drawPreview(g);
 	}
 
 	public void setTool(Tool newTool) {
@@ -84,23 +82,23 @@ public class Canvas extends JPanel {
 	}
 
 	public void setColor(Color newColor) {
-		this.color = newColor;
+		properties.setColor(newColor);
 	}
 
 	public void undo() {
 		if (!undo.isEmpty()) {
-			redo.push(copyImage(buffer));
+			redo.push(copyImage(properties.getImage()));
 
-			buffer = undo.pop();
+			properties.setImage(undo.pop());
 			repaint();
 		}
 	}
 
 	public void redo() {
 		if (!redo.isEmpty()) {
-			undo.push(copyImage(buffer));
+			undo.push(copyImage(properties.getImage()));
 
-			buffer = redo.pop();
+			properties.setImage(redo.pop());
 			repaint();
 		}
 	}

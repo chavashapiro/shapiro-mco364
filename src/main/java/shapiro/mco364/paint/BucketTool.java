@@ -1,19 +1,23 @@
 package shapiro.mco364.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class BucketTool implements Tool {
+	
+	private PaintProperties properties;
+	
+	public BucketTool(PaintProperties properties) {
+		this.properties = properties;
+	}
 
-	public void mousePressed(Graphics g, int x, int y, BufferedImage image,
-			Color color) {
-		int srcColor = image.getRGB(x, y);
-		int targetColor = color.getRGB();
+	public void mousePressed(Graphics g, int x, int y) {
+		int srcColor = properties.getImage().getRGB(x, y);
+		int targetColor = properties.getColor().getRGB();
 		if (srcColor != targetColor) {
-			fill(image, x, y, srcColor, targetColor);
+			fill(properties.getImage(), x, y, srcColor, targetColor);
 		}
 	}
 
@@ -27,7 +31,7 @@ public class BucketTool implements Tool {
 			Point p = queue.remove();
 			x = p.getX();
 			y = p.getY();
-			if (x > 0 && y > 0 && x < image.getWidth() && y < image.getHeight()
+			if (x > 0 && y > 0 && x < properties.getWidth() && y < properties.getHeight()
 					&& image.getRGB(x, y) == srcColor) {
 
 				image.setRGB(x, y, targetColor);
@@ -41,17 +45,17 @@ public class BucketTool implements Tool {
 
 	}
 
-	public void mouseReleased(Graphics g, int x, int y, Color color) {
+	public void mouseReleased(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void mouseDragged(Graphics g, int x, int y, Color color) {
+	public void mouseDragged(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void drawPreview(Graphics g, Color color) {
+	public void drawPreview(Graphics g) {
 		// TODO Auto-generated method stub
 
 	}

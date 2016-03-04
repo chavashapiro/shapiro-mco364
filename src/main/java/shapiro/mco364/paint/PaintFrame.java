@@ -3,9 +3,11 @@ package shapiro.mco364.paint;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
@@ -25,62 +27,36 @@ public class PaintFrame extends JFrame {
 		Container container = getContentPane();
 		container.setLayout(new BorderLayout());
 
-		final Canvas canvas = new Canvas();
+		final PaintProperties properties = new PaintProperties();
+
+		final Canvas canvas = new Canvas(properties);
 		container.add(canvas, BorderLayout.CENTER);
 
 		JPanel panel = new JPanel();
+		Dimension dim = new Dimension(800, 180);
+		panel.setPreferredSize(dim);
 
-		JButton pencilButton = new JButton("Pencil");
-		pencilButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				canvas.setTool(new PencilTool());
+		ActionListener listener = new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				ToolButton button = (ToolButton) event.getSource();
+				canvas.setTool(button.getTool());
 			}
+		};
+		
+		ToolButton[] buttons = new ToolButton[] {
+			new ToolButton(new PencilTool(properties), "/pencil.png"),
+			new ToolButton(new LineTool(properties), "/line.png"),
+			new ToolButton(new BoxTool(properties), "/box.png"),
+			new ToolButton(new OvalTool(properties), "/oval.png"),
+			new ToolButton(new BucketTool(properties), "/bucket.png")
+		};
+		
+		for (ToolButton button : buttons) {
+			button.addActionListener(listener);
+			panel.add(button);
+		}
 
-		});
-		panel.add(pencilButton);
-
-		JButton lineButton = new JButton("Line");
-		lineButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				canvas.setTool(new LineTool());
-			}
-
-		});
-		panel.add(lineButton);
-
-		JButton boxButton = new JButton("Box");
-		boxButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				canvas.setTool(new BoxTool());
-			}
-
-		});
-		panel.add(boxButton);
-
-		JButton ovalButton = new JButton("Oval");
-		ovalButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				canvas.setTool(new OvalTool());
-			}
-
-		});
-		panel.add(ovalButton);
-
-		JButton bucketButton = new JButton("Bucket");
-		bucketButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent arg0) {
-				canvas.setTool(new BucketTool());
-			}
-
-		});
-		panel.add(bucketButton);
-
-		JButton undoButton = new JButton("Undo");
+		JButton undoButton = new JButton(new ImageIcon(getClass().getResource("/undo.png")));
 		undoButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -90,7 +66,7 @@ public class PaintFrame extends JFrame {
 		});
 		panel.add(undoButton);
 
-		JButton redoButton = new JButton("Redo");
+		JButton redoButton = new JButton(new ImageIcon(getClass().getResource("/redo.png")));
 		redoButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
