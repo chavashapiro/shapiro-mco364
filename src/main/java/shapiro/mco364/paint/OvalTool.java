@@ -10,7 +10,7 @@ public class OvalTool implements Tool {
 	private int width;
 	private int height;
 	private int cornerX;
-	private int cornerY;	
+	private int cornerY;
 
 	public OvalTool(PaintProperties properties) {
 		this.properties = properties;

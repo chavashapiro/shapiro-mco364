@@ -42,15 +42,13 @@ public class PaintFrame extends JFrame {
 				canvas.setTool(button.getTool());
 			}
 		};
-		
-		ToolButton[] buttons = new ToolButton[] {
-			new ToolButton(new PencilTool(properties), "/pencil.png"),
-			new ToolButton(new LineTool(properties), "/line.png"),
-			new ToolButton(new BoxTool(properties), "/box.png"),
-			new ToolButton(new OvalTool(properties), "/oval.png"),
-			new ToolButton(new BucketTool(properties), "/bucket.png")
-		};
-		
+
+		ToolButton[] buttons = new ToolButton[] { new ToolButton(new PencilTool(properties), "/pencil.png"),
+				new ToolButton(new LineTool(properties), "/line.png"),
+				new ToolButton(new BoxTool(properties), "/box.png"),
+				new ToolButton(new OvalTool(properties), "/oval.png"),
+				new ToolButton(new BucketTool(properties), "/bucket.png") };
+
 		for (ToolButton button : buttons) {
 			button.addActionListener(listener);
 			panel.add(button);

@@ -6,9 +6,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class BucketTool implements Tool {
-	
+
 	private PaintProperties properties;
-	
+
 	public BucketTool(PaintProperties properties) {
 		this.properties = properties;
 	}
@@ -21,8 +21,7 @@ public class BucketTool implements Tool {
 		}
 	}
 
-	private void fill(BufferedImage image, int x, int y, int srcColor,
-			int targetColor) {
+	private void fill(BufferedImage image, int x, int y, int srcColor, int targetColor) {
 		Point point = new Point(x, y);
 		Queue<Point> queue = new LinkedList<Point>();
 		queue.add(point);

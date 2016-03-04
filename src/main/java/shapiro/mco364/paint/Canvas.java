@@ -22,7 +22,7 @@ public class Canvas extends JPanel {
 
 		this.properties = properties;
 		undo = new Stack<BufferedImage>();
-		redo = new Stack<BufferedImage>();		
+		redo = new Stack<BufferedImage>();
 		tool = new PencilTool(properties);
 
 		this.addMouseListener(new MouseListener() {
