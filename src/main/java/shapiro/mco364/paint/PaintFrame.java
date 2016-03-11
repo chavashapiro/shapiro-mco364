@@ -16,9 +16,14 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 public class PaintFrame extends JFrame {
 
-	public PaintFrame() {
+	@Inject
+	public PaintFrame(PaintProperties properties) {
 
 		setTitle("PaintFrame");
 		setSize(800, 600);
@@ -26,8 +31,6 @@ public class PaintFrame extends JFrame {
 
 		Container container = getContentPane();
 		container.setLayout(new BorderLayout());
-
-		final PaintProperties properties = new PaintProperties();
 
 		final Canvas canvas = new Canvas(properties);
 		container.add(canvas, BorderLayout.CENTER);
@@ -98,6 +101,7 @@ public class PaintFrame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new PaintFrame();
+		Injector injector = Guice.createInjector(new PaintModule());
+		PaintFrame frame = injector.getInstance(PaintFrame.class);
 	}
 }

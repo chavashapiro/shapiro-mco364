@@ -17,7 +17,7 @@ public class PaintProperties {
 		width = image.getWidth();
 		height = image.getHeight();
 		color = Color.BLACK;
-		weight = 0;
+		weight = 1;
 		fill = false;
 	}
 
