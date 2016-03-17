@@ -2,6 +2,7 @@ package shapiro.mco364.paint;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,12 +19,14 @@ import javax.swing.event.ChangeListener;
 
 @Singleton
 public class PaintToolbar extends Container {
-	
+
 	@Inject
 	public PaintToolbar(final Canvas canvas, PaintProperties properties) {
-		
+
 		setLayout(new FlowLayout());
-		
+		Dimension dim = new Dimension(800, 180);
+		setPreferredSize(dim);
+
 		ActionListener listener = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				ToolButton button = (ToolButton) event.getSource();
@@ -80,5 +83,5 @@ public class PaintToolbar extends Container {
 		});
 		add(colorChooser);
 	}
-	
+
 }

@@ -2,7 +2,6 @@ package shapiro.mco364.paint;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
@@ -23,9 +22,6 @@ public class PaintFrame extends JFrame {
 		container.setLayout(new BorderLayout());
 
 		container.add(canvas, BorderLayout.CENTER);
-
-		Dimension dim = new Dimension(800, 180);
-		toolbar.setPreferredSize(dim);
 
 		container.add(toolbar, BorderLayout.NORTH);
 
