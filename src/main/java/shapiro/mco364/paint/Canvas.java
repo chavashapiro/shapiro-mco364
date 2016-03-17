@@ -9,8 +9,11 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.Stack;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.JPanel;
 
+@Singleton
 public class Canvas extends JPanel {
 
 	private Stack<BufferedImage> undo;
@@ -18,6 +21,7 @@ public class Canvas extends JPanel {
 	private Tool tool;
 	private PaintProperties properties;
 
+	@Inject
 	public Canvas(final PaintProperties properties) {
 
 		this.properties = properties;
