@@ -17,6 +17,7 @@ public class PencilTool implements Tool {
 		previousY = null;
 
 		g.setColor(properties.getColor());
+		// g.setStroke(properties.getStroke());
 		g.drawLine(x, y, x, y);
 
 	}
@@ -28,6 +29,7 @@ public class PencilTool implements Tool {
 
 	public void mouseDragged(Graphics2D g, int x, int y) {
 		g.setColor(properties.getColor());
+		// g.setStroke(properties.getStroke());
 		g.drawLine(x, y, x, y);
 		if (previousX != null && previousY != null) {
 			g.drawLine(previousX, previousY, x, y);

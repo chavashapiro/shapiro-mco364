@@ -1,6 +1,8 @@
 package shapiro.mco364.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 
 import javax.inject.Singleton;
@@ -12,7 +14,7 @@ public class PaintProperties {
 	private int height; // of canvas
 	private BufferedImage image;
 	private Color color;
-	private int weight;
+	private BasicStroke stroke;
 	private boolean fill;
 
 	public PaintProperties() {
@@ -20,7 +22,7 @@ public class PaintProperties {
 		width = image.getWidth();
 		height = image.getHeight();
 		color = Color.BLACK;
-		weight = 1;
+		stroke = new BasicStroke(6);
 		fill = false;
 	}
 
@@ -56,12 +58,12 @@ public class PaintProperties {
 		this.color = color;
 	}
 
-	public int getWeight() {
-		return weight;
+	public Stroke getStroke() {
+		return stroke;
 	}
 
 	public void setWeight(int weight) {
-		this.weight = weight;
+		this.stroke = new BasicStroke(weight);
 	}
 
 	public boolean isFill() {
