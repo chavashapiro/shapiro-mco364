@@ -1,6 +1,6 @@
 package shapiro.mco364.paint;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class PencilTool implements Tool {
 
@@ -12,7 +12,7 @@ public class PencilTool implements Tool {
 		this.properties = properties;
 	}
 
-	public void mousePressed(Graphics g, int x, int y) {
+	public void mousePressed(Graphics2D g, int x, int y) {
 		previousX = null;
 		previousY = null;
 
@@ -21,12 +21,12 @@ public class PencilTool implements Tool {
 
 	}
 
-	public void mouseReleased(Graphics g, int x, int y) {
+	public void mouseReleased(Graphics2D g, int x, int y) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void mouseDragged(Graphics g, int x, int y) {
+	public void mouseDragged(Graphics2D g, int x, int y) {
 		g.setColor(properties.getColor());
 		g.drawLine(x, y, x, y);
 		if (previousX != null && previousY != null) {
@@ -38,7 +38,7 @@ public class PencilTool implements Tool {
 
 	}
 
-	public void drawPreview(Graphics g) {
+	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 
 	}

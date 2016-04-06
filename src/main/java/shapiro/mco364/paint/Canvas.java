@@ -46,13 +46,13 @@ public class Canvas extends JPanel {
 			public void mousePressed(MouseEvent event) {
 				undo.push(copyImage(properties.getImage()));
 
-				tool.mousePressed(properties.getImage().getGraphics(), event.getX(), event.getY());
+				tool.mousePressed((Graphics2D) properties.getImage().getGraphics(), event.getX(), event.getY());
 				repaint();
 
 			}
 
 			public void mouseReleased(MouseEvent event) {
-				tool.mouseReleased(properties.getImage().getGraphics(), event.getX(), event.getY());
+				tool.mouseReleased((Graphics2D) properties.getImage().getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
@@ -61,7 +61,7 @@ public class Canvas extends JPanel {
 		addMouseMotionListener(new MouseMotionListener() {
 
 			public void mouseDragged(MouseEvent event) {
-				tool.mouseDragged(properties.getImage().getGraphics(), event.getX(), event.getY());
+				tool.mouseDragged((Graphics2D) properties.getImage().getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
@@ -78,7 +78,7 @@ public class Canvas extends JPanel {
 		super.paintComponent(g);
 
 		g.drawImage(properties.getImage(), 0, 0, null);
-		tool.drawPreview(g);
+		tool.drawPreview((Graphics2D)g);
 	}
 
 	public void setTool(Tool newTool) {

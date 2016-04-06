@@ -1,7 +1,7 @@
 package shapiro.mco364.paint;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -16,7 +16,7 @@ public class PencilToolTest {
 		
 		Mockito.when(properties.getColor()).thenReturn(Color.RED);
 
-		Graphics g = Mockito.mock(Graphics.class);
+		Graphics2D g = Mockito.mock(Graphics2D.class);
 		tool.mousePressed(g, 5, 5);
 
 		// check to make sure that g.drawLine(5,5,5,5) was called
@@ -31,7 +31,7 @@ public class PencilToolTest {
 		
 		Mockito.when(properties.getColor()).thenReturn(Color.RED);
 
-		Graphics g = Mockito.mock(Graphics.class);
+		Graphics2D g = Mockito.mock(Graphics2D.class);
 		tool.mouseDragged(g, 5, 10);
 		tool.mouseDragged(g, 6, 9);
 		
