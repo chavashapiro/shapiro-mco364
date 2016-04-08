@@ -7,8 +7,10 @@ public class PencilTool implements Tool {
 	private PaintProperties properties;
 	private Integer previousX;
 	private Integer previousY;
+	private CanvasRepaintManager manager;
 
-	public PencilTool(PaintProperties properties) {
+	public PencilTool(CanvasRepaintManager manager, PaintProperties properties) {
+		this.manager = manager;
 		this.properties = properties;
 	}
 
@@ -19,6 +21,7 @@ public class PencilTool implements Tool {
 		g.setColor(properties.getColor());
 		// g.setStroke(properties.getStroke());
 		g.drawLine(x, y, x, y);
+		manager.repaint(x, y, x, y);
 
 	}
 
@@ -33,6 +36,7 @@ public class PencilTool implements Tool {
 		g.drawLine(x, y, x, y);
 		if (previousX != null && previousY != null) {
 			g.drawLine(previousX, previousY, x, y);
+			manager.repaint(previousX, previousY, x, y);
 		}
 
 		previousX = x;

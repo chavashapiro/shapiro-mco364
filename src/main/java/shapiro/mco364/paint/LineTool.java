@@ -7,13 +7,15 @@ public class LineTool implements Tool {
 
 	private static final Logger LOG = Logger.getLogger(LineTool.class.getName());
 
+	private CanvasRepaintManager manager;
 	private PaintProperties properties;
 	private int x1;
 	private int y1;
 	private int x2;
 	private int y2;
 
-	public LineTool(PaintProperties properties) {
+	public LineTool(CanvasRepaintManager manager, PaintProperties properties) {
+		this.manager = manager;
 		this.properties = properties;
 	}
 

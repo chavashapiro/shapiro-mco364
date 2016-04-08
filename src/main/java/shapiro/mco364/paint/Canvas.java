@@ -46,15 +46,13 @@ public class Canvas extends JPanel {
 			public void mousePressed(MouseEvent event) {
 				undo.push(copyImage(properties.getImage()));
 
-				tool.mousePressed((Graphics2D) properties.getImage()
-						.getGraphics(), event.getX(), event.getY());
+				tool.mousePressed((Graphics2D) properties.getImage().getGraphics(), event.getX(), event.getY());
 				repaint();
 
 			}
 
 			public void mouseReleased(MouseEvent event) {
-				tool.mouseReleased((Graphics2D) properties.getImage()
-						.getGraphics(), event.getX(), event.getY());
+				tool.mouseReleased((Graphics2D) properties.getImage().getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
@@ -63,8 +61,7 @@ public class Canvas extends JPanel {
 		addMouseMotionListener(new MouseMotionListener() {
 
 			public void mouseDragged(MouseEvent event) {
-				tool.mouseDragged((Graphics2D) properties.getImage()
-						.getGraphics(), event.getX(), event.getY());
+				tool.mouseDragged((Graphics2D) properties.getImage().getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
@@ -111,8 +108,7 @@ public class Canvas extends JPanel {
 	}
 
 	private BufferedImage copyImage(BufferedImage image) {
-		BufferedImage newBuffer = new BufferedImage(image.getWidth(),
-				image.getHeight(), image.getType());
+		BufferedImage newBuffer = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
 		Graphics2D g2d = newBuffer.createGraphics();
 		g2d.drawImage(image, 0, 0, null);
 
